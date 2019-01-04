@@ -23,3 +23,4 @@ The project uses Larabug to handle exceptions, however feel free to implement wh
 * New design (2.0)
 * Prepare seed data
 * Make the "backend" pretty and more useful
+* Make RSS feeds work again

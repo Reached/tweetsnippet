@@ -1,7 +1,7 @@
 # Tweetsnippet
 Tweetsnippet is a curated list of tips and tricks from Twitter.
 
-#Installation
+# Installation
 
 Pull the repository and run `composer install`
 

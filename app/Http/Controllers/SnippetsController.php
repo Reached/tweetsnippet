@@ -20,7 +20,7 @@ class SnippetsController extends Controller
             return Snippet::orderBy('created_at', 'DESC')->simplePaginate(10);
         });
 
-        return view('snippets.index', compact('snippets', 'tags', 'total'));
+        return view('snippets.index', compact('snippets', 'tags'));
     }
 
     public function create()

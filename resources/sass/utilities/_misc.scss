@@ -1,0 +1,27 @@
+.rounded {
+  border-radius: $default-border-radius;
+}
+
+.box-shadow {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .08);
+}
+
+.fixed-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: #ffffff;
+  z-index: 1;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .08);
+}
+
+.hide-small {
+  display: none;
+}
+
+@media screen and (min-width: 61rem) {
+  .hide-small {
+    display: block;
+  }
+}

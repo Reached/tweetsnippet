@@ -1,0 +1,83 @@
+.error-message {
+  position: absolute;
+  bottom: -1.4rem;
+  font-size: 90%;
+  color: red;
+  left: 0;
+}
+
+input {
+  border: 2px solid #ccc;
+  border-radius: 0;
+  font-size: 1rem;
+  width: 100%;
+  padding: 1rem;
+  border-radius: 4px;
+  box-shadow: none;
+  appearance: none;
+}
+
+input:focus {
+  outline: none;
+  border-color: $brand-primary;
+}
+
+.form-group {
+  margin-bottom: 2rem;
+  width: 100%;
+  position: relative;
+}
+
+label {
+  font-size: 1rem;
+  font-weight: bold;
+  margin-bottom: .25rem;
+  display: inline-block;
+}
+
+.custom-checkbox {
+  display: flex;
+  margin-bottom: .5rem;
+}
+
+.custom-checkbox input {
+  width: auto;
+  position: absolute;
+  left: -9999px;
+}
+
+.custom-checkbox [type="checkbox"]:not(:checked) + label:before,
+.custom-checkbox [type="checkbox"]:checked + label:before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0;
+  width: 1.25em; height: 1.25em;
+  border: 2px solid #ccc;
+  background: #fff;
+  border-radius: 4px;
+}
+
+/* checked mark aspect */
+.custom-checkbox [type="checkbox"]:not(:checked) + label:after,
+.custom-checkbox [type="checkbox"]:checked + label:after {
+  content: '✔';
+  position: absolute;
+  top: .2em; left: .1em;
+  font-size: 1.3em;
+  line-height: 0.8;
+  color: $brand-primary;
+}
+
+/* checked mark aspect changes */
+.custom-checkbox [type="checkbox"]:not(:checked) + label:after {
+  opacity: 0;
+}
+
+[type="checkbox"]:checked + label:after {
+  opacity: 1;
+}
+
+.custom-checkbox label {
+  position: relative;
+  padding-left: 1.95em;
+}

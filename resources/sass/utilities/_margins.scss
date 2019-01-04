@@ -1,0 +1,61 @@
+// Margin all around 1
+.m-1 {
+  margin: $scale-value;
+}
+
+// Margin all around 1
+.m-2 {
+  margin: $scale-value * 2;
+}
+
+// Margin top 1
+.m-t-1 {
+  margin-top: $scale-value;
+}
+
+// Margin top 2
+.m-t-2 {
+  margin-top: $scale-value * 2;
+}
+
+// Margin bottom 1
+.m-b-1 {
+  margin-bottom: $scale-value;
+}
+
+// Margin bottom 2
+.m-b-2 {
+  margin-bottom: $scale-value * 2;
+}
+
+// Margin right 1
+.m-r-1 {
+  margin-right: $scale-value;
+}
+
+// Margin right 2
+.m-r-2 {
+  margin-right: $scale-value;
+}
+
+// Margin left 1
+.m-l-1 {
+  margin-left: $scale-value;
+}
+
+// Margin left 2
+.m-l-2 {
+  margin-left: $scale-value * 2;
+}
+
+.m-l-4 {
+  margin-left: $scale-value * 4;
+}
+
+.m-0 {
+  margin: 0;
+}
+
+.m-b-0 {
+  margin-bottom: 0;
+}

@@ -1,0 +1,37 @@
+.horizontal-scroller {
+  overflow: auto;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  position: relative;
+  -webkit-overflow-scrolling: touch;
+  background-color: #eee;
+}
+
+.horizontal-scroller a {
+  padding: .5rem 1.5rem;
+  border-radius: $default-border-radius;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $text-color;
+  position: relative;
+}
+
+.horizontal-scroller a.active {
+  background: linear-gradient(to right, #15B982, #01D18B);
+  color: #ffffff;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, .16);
+}
+
+@media screen and (min-width: 41rem) {
+  .horizontal-scroller {
+    flex-wrap: wrap;
+    height: auto;
+    padding-bottom: 0;
+  }
+  .horizontal-scroller a {
+    margin-bottom: 1rem;
+  }
+}

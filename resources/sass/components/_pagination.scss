@@ -1,0 +1,12 @@
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  width: 200px;
+  margin: 4rem auto;
+  padding: 0;
+}
+
+.pagination li {
+  list-style-type: none;
+  font-size: 1.2rem;
+}

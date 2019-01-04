@@ -1,0 +1,14 @@
+.alert {
+  width: 100%;
+  padding: 1rem;
+  text-align: center;
+  background: $brand-primary;
+  color: #ffffff;
+}
+
+@media screen and (min-width: 61rem) {
+  .alert {
+    padding: 2rem;
+    font-size: 1.3rem;
+  }
+}

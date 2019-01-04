@@ -1,0 +1,35 @@
+.button {
+  padding: .5rem 1.5rem;
+  border-radius: $default-border-radius;
+  font-size: 1rem;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $text-color;
+  position: relative;
+  background: linear-gradient(to right, #15B982, #01D18B);
+  color: #ffffff;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, .16);
+  font-family: inherit;
+  transition: .35s box-shadow;
+  cursor: pointer;
+  &:focus {
+    outline: none;
+  }
+}
+
+.button:hover {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, .25);
+}
+
+.button[disabled] {
+  cursor: not-allowed;
+  opacity: .5;
+}
+
+@media (max-width: 500px) {
+  .search-button, .search-overlay {
+    display: none;
+  }
+}

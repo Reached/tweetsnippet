@@ -1,0 +1,19 @@
+table {
+  width: 100%;
+}
+
+th {
+  font-weight: bold;
+}
+
+table, td, th {
+  text-align: left;
+}
+
+th, td {
+  padding: 1rem;
+}
+
+td {
+  border-bottom: 1px solid #ccc;
+}

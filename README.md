@@ -18,7 +18,7 @@ All kinds of contributions are very welcome and highly encouraged! Be sure to re
 ## Other notes
 The project uses Larabug to handle exceptions, however feel free to implement whatever you feel works better for you
 
-#Roadmap
+# Roadmap
 
 * New design (2.0)
 * Prepare seed data

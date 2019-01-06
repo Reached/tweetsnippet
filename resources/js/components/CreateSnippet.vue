@@ -118,7 +118,7 @@
             storeSnippet() {
                 axios.post('/store-snippet', this.snippetContent)
                     .then((response) => {
-                    console.log(response);
+                        console.log(response);
                         alert(response.data.message);
 
                         this.snippet = null;
@@ -126,9 +126,8 @@
                         this.snippetForm.tweet_id = '';
                         this.checkedTags = [];
                     }).catch((error) => {
-                        console.log(error.response.data);
-                        Object.keys(error.response.data).forEach(function (key) {
-                            let obj = error.response.data[key];
+                        Object.keys(error.response.data.errors).forEach(function (key) {
+                            let obj = error.response.data.errors[key];
                             obj.forEach((message) => {
                                 alert(message);
                             });

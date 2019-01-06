@@ -45,8 +45,6 @@ class SnippetsController extends Controller
      */
     public function store(TwitterClient $twitterClient)
     {
-        return request()->all();
-
         $tags = request()->get('tags');
 
         $this->validate(request(), [
@@ -73,7 +71,7 @@ class SnippetsController extends Controller
 
         // Clear the cache
         Cache::flush();
-        
+
         return response()->json(['message' => 'The tweet was successfully created.']);
     }
 

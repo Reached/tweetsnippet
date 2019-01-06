@@ -10,7 +10,7 @@ Turn the .env.example file into an .env and fill it out with the appropriate val
 ## Create a user
 Write `php artisan user` on the command line and follow the instructions
 
-Migrate your database by running `php artisan migrate` - please note that Tweetsnippet currently does not come with any data out of the box.
+Migrate your database by running `php artisan migrate` - please note that Tweetsnippet only provides a couple of tags out of the box, you can create these by running `php artisan db:seed`.
 
 # Contributions
 All kinds of contributions are very welcome and highly encouraged! Be sure to read our guidelines before interacting with the repository however.

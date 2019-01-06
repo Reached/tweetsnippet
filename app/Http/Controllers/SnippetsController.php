@@ -45,6 +45,8 @@ class SnippetsController extends Controller
      */
     public function store(TwitterClient $twitterClient)
     {
+        return request()->all();
+
         $tags = request()->get('tags');
 
         $this->validate(request(), [
@@ -71,10 +73,7 @@ class SnippetsController extends Controller
 
         // Clear the cache
         Cache::flush();
-
-        // Give contribution if necessary
-        $this->giveContribution(request(), $twitterClient);
-
+        
         return response()->json(['message' => 'The tweet was successfully created.']);
     }
 
@@ -90,15 +89,5 @@ class SnippetsController extends Controller
         $text = preg_replace("/@([A-Za-z0-9\/\.\_]*)/", "<a href=\"http://www.twitter.com/$1\">@$1</a>", $text);
 
         return $text;
-    }
-
-    public function giveContribution($request) {
-        if ($request->has('contribution_id')) {
-            $contributionId = $request->get('contribution_id');
-
-            $contribution = Contribution::where('id', $contributionId)->first();
-            $contribution->approved = true;
-            $contribution->save();
-        }
     }
 }

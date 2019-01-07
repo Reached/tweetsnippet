@@ -8,7 +8,7 @@ Pull the repository and run `composer install`
 Turn the .env.example file into an .env and fill it out with the appropriate values
 
 ## Create a user
-Write `php artisan user` on the command line and follow the instructions
+Write `php artisan make:user` on the command line and follow the instructions
 
 Migrate your database by running `php artisan migrate` - please note that Tweetsnippet only provides a couple of tags out of the box, you can create these by running `php artisan db:seed`.
 

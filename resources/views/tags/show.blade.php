@@ -16,7 +16,7 @@
             @include('snippets.includes.snippet')
         @empty
             <h3 class="headline-centered">No snippets exists with this tag yet :(</h3>
-            <a href="{{ route('contribute') }}" class="centered-link">You can contribute here</a>
+            <a href="{{ route('contribute.create') }}" class="centered-link">You can contribute here</a>
         @endforelse
     </div>
 

@@ -36,7 +36,7 @@ class ContributionsController extends Controller
 
         Session::flash('message', 'Thank you! Your snippet was successfully sent, I will review it shortly :)');
 
-        Notification::send($contribution, new ContributionMade($contribution));
+//         Notification::send($contribution, new ContributionMade($contribution));
 
         return redirect()->back();
     }

@@ -18,6 +18,10 @@ class TagsController extends Controller
         $tag = $tags->where('slug', $urlTag)
             ->load('snippets')
             ->first();
+        
+        if(!$tag) {
+            abort(404);
+        }
 
         $snippets = Cache::remember('tag.' . $tag->id . '.snippets' . '.page.' . $page, Carbon::now()->addWeek(2), function() use($tag) {
             return $tag->snippets()->orderBy('created_at', 'DESC')->simplePaginate(20);

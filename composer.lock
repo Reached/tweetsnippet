@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "71d47e88056cc0384ef920993fc5e972",
+    "content-hash": "b979a4dc4fb901e81cae281e6085b7f9",
     "packages": [
         {
             "name": "albertcht/invisible-recaptcha",
@@ -1259,6 +1259,60 @@
                 "storage"
             ],
             "time": "2018-11-23T23:41:29+00:00"
+        },
+        {
+            "name": "m1guelpf/laravel-multiformat",
+            "version": "v1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/m1guelpf/laravel-multiformat.git",
+                "reference": "d16ecb7fec6a9aee8175e14867fd26e686ffcb82"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/m1guelpf/laravel-multiformat/zipball/d16ecb7fec6a9aee8175e14867fd26e686ffcb82",
+                "reference": "d16ecb7fec6a9aee8175e14867fd26e686ffcb82",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1"
+            },
+            "require-dev": {
+                "larapack/dd": "^1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "M1guelpf\\Multiformat\\MultiformatServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "M1guelpf\\Multiformat\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Miguel Piedrafita",
+                    "email": "soy@miguelpiedrafita.com",
+                    "homepage": "https://miguelpiedrafita.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Multiformat Endpoints in Laravel",
+            "homepage": "https://github.com/m1guelpf/laravel-multiformat",
+            "keywords": [
+                "laravel",
+                "m1guelpf",
+                "multiformat"
+            ],
+            "time": "2018-02-17T15:44:40+00:00"
         },
         {
             "name": "monolog/monolog",

@@ -14,7 +14,7 @@
 //Route::feeds();
 
 Route::get('/', 'SnippetsController@index')->name('home');
-Route::get('/snippets/{tag}', 'TagsController@show')->name('tag.show');
+Route::get('/snippets/{tag}', 'TagsController@show')->name('tag.show')->multiformat();
 Route::get('/search', 'PersonsController@show')->name('person.show');
 Route::get('about', 'PagesController@about')->name('about');
 Route::get('contribute', 'ContributionsController@create')->name('contribute.create');
@@ -23,7 +23,7 @@ Route::post('contribute', 'ContributionsController@store')->name('contribute.sto
 /*Route::post('/newsletter-signup', 'NewsletterController@signup')->name('newsletter.signup');*/
 
 // Only for admins
-Route::group(['middleware' => 'auth'], function() {
+Route::group(['middleware' => 'auth'], function () {
     Route::get('create', 'SnippetsController@create')->name('snippet.create');
     Route::post('fetch-tweet', 'SnippetsController@fetchTweet');
     Route::post('store-snippet', 'SnippetsController@store');
@@ -42,7 +42,3 @@ Auth::routes(['register' => false]);
 //Route::get('/register', function() {
 //    return redirect()->route('home');
 //});
-
-
-
-

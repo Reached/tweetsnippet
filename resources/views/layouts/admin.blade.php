@@ -33,43 +33,42 @@
 
 <body class="header-is-fixed @yield('body-classes')">
     <div id="app">
-        @yield('lightbox')
+        {{--@yield('lightbox')--}}
         <header class="fixed-header">
-            <nav class="main-navigation">
-                <a href="/" class="logo">Tweet <span class="logotype">{snippet}</span></a>
-                <div class="links admin">
-                    <a href="{{ route('contribute.create') }}" class="{{ (Request::url('contribute')) === route('contribute.create') ? 'active' : '' }}">Contribute</a>
-                    <a href="{{ route('home') }}" class="{{ (Request::url('/')) === route('home') ? 'active' : '' }}">Snippets</a>
-                    <a href="{{ route('about') }}" class="{{ (Request::url('about')) === route('about') ? 'active' : '' }}">About</a>
-                    <button class="button search-button">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><g class="nc-icon-wrapper" fill="#FFF"><path d="M7 14c-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7-3.14 7-7 7zM7 2C4.243 2 2 4.243 2 7s2.243 5 5 5 5-2.243 5-5-2.243-5-5-5z"/><path data-color="color-2" d="M15.707 14.293L13.314 11.9c-.41.53-.885 1.003-1.414 1.414l2.393 2.393c.195.195.45.293.707.293s.512-.098.707-.293c.39-.39.39-1.023 0-1.414z"/></g></svg>
-                    </button>
-                    @if(Auth::check())
-                        <a href="{{ route('snippet.create') }}" class="{{ (Request::url('snippet.create')) === route('snippet.create') ? 'active' : '' }}">Create snippet</a>
-                        <form method="POST" action="/logout">
-                            {{ csrf_field() }}
-                            <button type="submit" class="button">Log out</button>
-                        </form>
-                    @endif
-                </div>
-            </nav>
+            {{--<nav class="main-navigation">--}}
+                {{--<a href="/" class="logo">Tweet <span class="logotype">{snippet}</span></a>--}}
+                {{--<div class="links admin">--}}
+                    {{--<a href="{{ route('contribute.create') }}" class="{{ (Request::url('contribute')) === route('contribute.create') ? 'active' : '' }}">Contribute</a>--}}
+                    {{--<a href="{{ route('home') }}" class="{{ (Request::url('/')) === route('home') ? 'active' : '' }}">Snippets</a>--}}
+                    {{--<a href="{{ route('about') }}" class="{{ (Request::url('about')) === route('about') ? 'active' : '' }}">About</a>--}}
+                    {{--<button class="button search-button">--}}
+                        {{--<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><g class="nc-icon-wrapper" fill="#FFF"><path d="M7 14c-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7-3.14 7-7 7zM7 2C4.243 2 2 4.243 2 7s2.243 5 5 5 5-2.243 5-5-2.243-5-5-5z"/><path data-color="color-2" d="M15.707 14.293L13.314 11.9c-.41.53-.885 1.003-1.414 1.414l2.393 2.393c.195.195.45.293.707.293s.512-.098.707-.293c.39-.39.39-1.023 0-1.414z"/></g></svg>--}}
+                    {{--</button>--}}
+                    {{--@if(Auth::check())--}}
+                        {{--<a href="{{ route('snippet.create') }}" class="{{ (Request::url('snippet.create')) === route('snippet.create') ? 'active' : '' }}">Create snippet</a>--}}
+                        {{--<form method="POST" action="/logout">--}}
+                            {{--{{ csrf_field() }}--}}
+                            {{--<button type="submit" class="button">Log out</button>--}}
+                        {{--</form>--}}
+                    {{--@endif--}}
+                {{--</div>--}}
+            {{--</nav>--}}
 
-            <div class="search-overlay">
-                <button class="close-button">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M22.7 4.3l-3-3c-.4-.4-1-.4-1.4 0L12 7.6 5.7 1.3c-.4-.4-1-.4-1.4 0l-3 3c-.4.4-.4 1 0 1.4L7.6 12l-6.3 6.3c-.4.4-.4 1 0 1.4l3 3c.4.4 1 .4 1.4 0l6.3-6.3 6.3 6.3c.2.2.5.3.7.3s.5-.1.7-.3l3-3c.4-.4.4-1 0-1.4L16.4 12l6.3-6.3c.4-.4.4-1 0-1.4z" class="nc-icon-wrapper" fill="#FFF"/></svg>
-                </button>
-                <form action="{{ route('person.show', 'Peter Thiel') }}" method="GET">
-                    <input type="search" name="query" class="search-input" placeholder="Search here...">
-                </form>
-            </div>
-
-            @yield('horizontal-scroller')
+            {{--<div class="search-overlay">--}}
+                {{--<button class="close-button">--}}
+                    {{--<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M22.7 4.3l-3-3c-.4-.4-1-.4-1.4 0L12 7.6 5.7 1.3c-.4-.4-1-.4-1.4 0l-3 3c-.4.4-.4 1 0 1.4L7.6 12l-6.3 6.3c-.4.4-.4 1 0 1.4l3 3c.4.4 1 .4 1.4 0l6.3-6.3 6.3 6.3c.2.2.5.3.7.3s.5-.1.7-.3l3-3c.4-.4.4-1 0-1.4L16.4 12l6.3-6.3c.4-.4.4-1 0-1.4z" class="nc-icon-wrapper" fill="#FFF"/></svg>--}}
+                {{--</button>--}}
+                {{--<form action="{{ route('person.show', 'Peter Thiel') }}" method="GET">--}}
+                    {{--<input type="search" name="query" class="search-input" placeholder="Search here...">--}}
+                {{--</form>--}}
+            {{--</div>--}}
         </header>
 
         @if (Session::has('message'))
             <div class="alert">{{ Session::get('message') }}</div>
         @endif
 
+        @yield('sidebar')
         @yield('content')
     </div>
 

@@ -21,7 +21,7 @@ mix.js('resources/js/app.js', 'public/js')
     });
 
 mix.browserSync({
-    proxy: 'tweetsnippet2.localhost'
+    proxy: 'tweetsnippet.localhost'
 });
 
 

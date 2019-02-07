@@ -1,25 +1,32 @@
 @extends('layouts.admin')
 
 @section('title-tag')
-    <title>All snippets - Tweetsnippet</title>
+    <title>Tweetsnippet - all snippets</title>
 @endsection
 
-@section('horizontal-scroller')
-    @include('snippets.includes.horizontal-scroller')
+@section('sidebar')
+
 @endsection
 
 @section('content')
-    <h1 class="headline-centered has-subtitle">{ All snippets }</h1>
-    <h2 class="subtitle">Tweetsnippet is a curated list of tips and tricks from Twitter.</h2>
 
-    <div class="grid">
-        @forelse($snippets as $snippet)
-            @include('snippets.includes.snippet')
-        @empty
-            <h3 class="headline-centered">No snippets exists in this category yet :(</h3>
-        @endforelse
+    {{--<h1 class="headline-centered has-subtitle">{ All snippets }</h1>--}}
+    {{--<h2 class="subtitle">Tweetsnippet is a curated list of tips and tricks from Twitter.</h2>--}}
+
+    <div class="grid upper-grid">
+        @include('snippets.includes.sidebar')
+        <div class="grid">
+            @forelse($snippets as $snippet)
+                @include('snippets.includes.snippet')
+            @empty
+                <h3 class="headline-centered">No snippets exists in this category yet :(</h3>
+            @endforelse
+        </div>
+        {{ $snippets->links() }}
     </div>
-    {{ $snippets->links() }}
+
+
+
 @endsection
 
 @section('scripts')

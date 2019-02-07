@@ -5,22 +5,27 @@
 @endsection
 
 @section('content')
-    @section('horizontal-scroller')
-        @include('snippets.includes.horizontal-scroller')
-    @endsection
+    {{--@section('horizontal-scroller')--}}
+        {{--@include('snippets.includes.horizontal-scroller')--}}
+    {{--@endsection--}}
 
-    <h1 class="headline-centered">{{ '{ ' . $tag->name }} snippets }</h1>
+    {{--<h1 class="headline-centered">{{ '{ ' . $tag->name }} snippets }</h1>--}}
 
-    <div class="grid {{ ($snippets->count() === 0) ? 'no-items' : '' }}">
-        @forelse($snippets as $snippet)
-            @include('snippets.includes.snippet')
-        @empty
-            <h3 class="headline-centered">No snippets exists with this tag yet :(</h3>
-            <a href="{{ route('contribute.create') }}" class="centered-link">You can contribute here</a>
-        @endforelse
+    <div class="grid upper-grid">
+        @include('snippets.includes.sidebar')
+        <div class="grid {{ ($snippets->count() === 0) ? 'no-items' : '' }}">
+            @forelse($snippets as $snippet)
+                @include('snippets.includes.snippet')
+            @empty
+                <h3 class="headline-centered">No snippets exists with this tag yet :(</h3>
+                <a href="{{ route('contribute.create') }}" class="centered-link">You can contribute here</a>
+            @endforelse
+        </div>
+        {{ $snippets->links() }}
     </div>
 
-    {{ $snippets->links() }}
+
+
 @endsection
 
 @section('scripts')

@@ -43,18 +43,83 @@
 @import 'utilities/inputs';
 @import 'utilities/grid';
 @import 'typography';
-@import 'utilities/margins';
-@import 'utilities/paddings';
+//@import 'utilities/margins';
+//@import 'utilities/paddings';
 @import 'components/alerts';
 @import 'components/horizontal-scroller';
-@import 'components/navigation';
-@import 'components/footer';
+//@import 'components/navigation';
+//@import 'components/footer';
 @import 'components/buttons';
 @import 'components/modals';
 @import 'components/pagination';
-@import 'components/lightbox';
+//@import 'components/lightbox';
 @import 'components/inputs';
-@import 'components/tables';
+//@import 'components/tables';
+
+.tag-item.all.active {
+    background: $brand-primary;
+    color: #ffffff;
+}
+
+.tag-item.php.active {
+    background: #4F5B93;
+}
+
+.tag-item.javascript.active {
+    background: #EFD844;
+}
+
+.tag-item.laravel.active {
+   background: #e74430;
+}
+
+.tag-item.vue-js.active {
+    background: #4fc08d;
+}
+
+.tag-item.react-js.active {
+    background: #61dafb;
+}
+
+.tag-item.code-editor.active {
+    background: #1C2022;
+}
+
+.tag-item.design.active {
+    background: #5449D2;
+}
+
+.tag-item.css.active {
+    background: #0770B3;
+}
+
+.tag-item.es6.active {
+    background: #F4C33B;
+}
+
+.tag-item.ux.active {
+    background: #C8474B;
+}
+
+.tag-item.html.active {
+    background: #DB4C2F;
+}
+
+.tag-item.browsers.active {
+    background: #139E62;
+}
+
+.tag-item.git.active {
+    background: #E74E39;
+}
+
+.tag-item.cli.active {
+    background: #03262E;
+}
+
+.tag-item.ember.active {
+    background: #DA4B37;
+}
 
 @import 'base';
 

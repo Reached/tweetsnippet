@@ -18,7 +18,8 @@
         "larabug/larabug": "^1.2.2",
         "laravel/framework": "5.7.*",
         "predis/predis": "^1.1.1",
-        "spatie/laravel-feed": "^2.1"
+        "spatie/laravel-feed": "^2.1",
+        "watson/active": "^3.0"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",

@@ -14,7 +14,7 @@
 //Route::feeds();
 
 Route::get('/', 'SnippetsController@index')->name('home');
-Route::get('/snippets/{tag}', 'TagsController@show')->name('tag.show'); //->multiformat();
+Route::get('/snippets/{tag}', 'TagsController@show')->name('tag.show')->multiformat();
 Route::get('/search', 'PersonsController@show')->name('person.show');
 Route::get('about', 'PagesController@about')->name('about');
 Route::get('contribute', 'ContributionsController@create')->name('contribute.create');

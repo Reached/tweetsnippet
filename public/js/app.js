@@ -1963,6 +1963,1058 @@ function isSlowBuffer (obj) {
 
 /***/ }),
 
+/***/ "./node_modules/luminous-lightbox/es/Lightbox.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/luminous-lightbox/es/Lightbox.js ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Lightbox; });
+/* harmony import */ var _util_dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./util/dom */ "./node_modules/luminous-lightbox/es/util/dom.js");
+/* harmony import */ var _util_throwIfMissing__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./util/throwIfMissing */ "./node_modules/luminous-lightbox/es/util/throwIfMissing.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+
+
+var LEFT_ARROW = 37;
+var RIGHT_ARROW = 39; // All officially-supported browsers have this, but it's easy to
+// account for, just in case.
+
+var HAS_ANIMATION = typeof document === "undefined" ? false : "animation" in document.createElement("div").style;
+/**
+ * Represents the default lightbox implementation
+ */
+
+var Lightbox =
+/*#__PURE__*/
+function () {
+  /**
+   * Constructor
+   * @param {Object=} options Lightbox options
+   */
+  function Lightbox() {
+    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+    _classCallCheck(this, Lightbox);
+
+    this._sizeImgWrapperEl = this._sizeImgWrapperEl.bind(this);
+    this.showNext = this.showNext.bind(this);
+    this.showPrevious = this.showPrevious.bind(this);
+    this._completeOpen = this._completeOpen.bind(this);
+    this._completeClose = this._completeClose.bind(this);
+    this._handleKeydown = this._handleKeydown.bind(this);
+    this._handleClose = this._handleClose.bind(this);
+
+    var _options$namespace = options.namespace,
+        namespace = _options$namespace === void 0 ? null : _options$namespace,
+        _options$parentEl = options.parentEl,
+        parentEl = _options$parentEl === void 0 ? Object(_util_throwIfMissing__WEBPACK_IMPORTED_MODULE_1__["default"])() : _options$parentEl,
+        _options$triggerEl = options.triggerEl,
+        triggerEl = _options$triggerEl === void 0 ? Object(_util_throwIfMissing__WEBPACK_IMPORTED_MODULE_1__["default"])() : _options$triggerEl,
+        _options$sourceAttrib = options.sourceAttribute,
+        sourceAttribute = _options$sourceAttrib === void 0 ? Object(_util_throwIfMissing__WEBPACK_IMPORTED_MODULE_1__["default"])() : _options$sourceAttrib,
+        _options$caption = options.caption,
+        caption = _options$caption === void 0 ? null : _options$caption,
+        _options$includeImgix = options.includeImgixJSClass,
+        includeImgixJSClass = _options$includeImgix === void 0 ? false : _options$includeImgix,
+        _options$_gallery = options._gallery,
+        _gallery = _options$_gallery === void 0 ? null : _options$_gallery,
+        _options$_arrowNaviga = options._arrowNavigation,
+        _arrowNavigation = _options$_arrowNaviga === void 0 ? null : _options$_arrowNaviga,
+        _options$closeButtonE = options.closeButtonEnabled,
+        closeButtonEnabled = _options$closeButtonE === void 0 ? true : _options$closeButtonE,
+        _options$closeTrigger = options.closeTrigger,
+        closeTrigger = _options$closeTrigger === void 0 ? "click" : _options$closeTrigger;
+
+    this.settings = {
+      namespace: namespace,
+      parentEl: parentEl,
+      triggerEl: triggerEl,
+      sourceAttribute: sourceAttribute,
+      caption: caption,
+      includeImgixJSClass: includeImgixJSClass,
+      _gallery: _gallery,
+      _arrowNavigation: _arrowNavigation,
+      closeButtonEnabled: closeButtonEnabled,
+      onClose: options.onClose,
+      closeTrigger: closeTrigger
+    };
+
+    if (!Object(_util_dom__WEBPACK_IMPORTED_MODULE_0__["isDOMElement"])(this.settings.parentEl)) {
+      throw new TypeError("`new Lightbox` requires a DOM element passed as `parentEl`.");
+    }
+
+    this.currentTrigger = this.settings.triggerEl;
+    this.openClasses = this._buildClasses("open");
+    this.openingClasses = this._buildClasses("opening");
+    this.closingClasses = this._buildClasses("closing");
+    this.hasBeenLoaded = false;
+    this.elementBuilt = false;
+  }
+  /**
+   * Handles closing of the lightbox
+   * @param {!Event} e Event that triggered closing
+   * @return {void}
+   * @protected
+   */
+
+
+  _createClass(Lightbox, [{
+    key: "_handleClose",
+    value: function _handleClose(e) {
+      if (e && typeof e.preventDefault === "function") {
+        e.preventDefault();
+      }
+
+      var onClose = this.settings.onClose;
+
+      if (onClose && typeof onClose === "function") {
+        onClose();
+      }
+    }
+    /**
+     * Binds event listeners to the trigger element
+     * @return {void}
+     * @protected
+     */
+
+  }, {
+    key: "_bindEventListeners",
+    value: function _bindEventListeners() {
+      this.el.addEventListener(this.settings.closeTrigger, this._handleClose);
+
+      if (this.closeButtonEl) {
+        this.closeButtonEl.addEventListener("click", this._handleClose);
+      }
+    }
+    /**
+     * Builds a class list using the namespace and suffix, if any.
+     * @param {string} suffix Suffix to add to each class
+     * @return {!Array<!string>} Class list
+     * @protected
+     */
+
+  }, {
+    key: "_buildClasses",
+    value: function _buildClasses(suffix) {
+      var classes = ["lum-".concat(suffix)];
+      var ns = this.settings.namespace;
+
+      if (ns) {
+        classes.push("".concat(ns, "-").concat(suffix));
+      }
+
+      return classes;
+    }
+    /**
+     * Creates the lightbox element
+     * @return {void}
+     * @protected
+     */
+
+  }, {
+    key: "_buildElement",
+    value: function _buildElement() {
+      this.el = document.createElement("div");
+      Object(_util_dom__WEBPACK_IMPORTED_MODULE_0__["addClasses"])(this.el, this._buildClasses("lightbox"));
+      this.innerEl = document.createElement("div");
+      Object(_util_dom__WEBPACK_IMPORTED_MODULE_0__["addClasses"])(this.innerEl, this._buildClasses("lightbox-inner"));
+      this.el.appendChild(this.innerEl);
+      var loaderEl = document.createElement("div");
+      Object(_util_dom__WEBPACK_IMPORTED_MODULE_0__["addClasses"])(loaderEl, this._buildClasses("lightbox-loader"));
+      this.innerEl.appendChild(loaderEl);
+      this.imgWrapperEl = document.createElement("div");
+      Object(_util_dom__WEBPACK_IMPORTED_MODULE_0__["addClasses"])(this.imgWrapperEl, this._buildClasses("lightbox-image-wrapper"));
+      this.innerEl.appendChild(this.imgWrapperEl);
+      var positionHelperEl = document.createElement("span");
+      Object(_util_dom__WEBPACK_IMPORTED_MODULE_0__["addClasses"])(positionHelperEl, this._buildClasses("lightbox-position-helper"));
+      this.imgWrapperEl.appendChild(positionHelperEl);
+      this.imgEl = document.createElement("img");
+      Object(_util_dom__WEBPACK_IMPORTED_MODULE_0__["addClasses"])(this.imgEl, this._buildClasses("img"));
+      positionHelperEl.appendChild(this.imgEl);
+      this.captionEl = document.createElement("p");
+      Object(_util_dom__WEBPACK_IMPORTED_MODULE_0__["addClasses"])(this.captionEl, this._buildClasses("lightbox-caption"));
+      positionHelperEl.appendChild(this.captionEl);
+
+      if (this.settings.closeButtonEnabled) {
+        this.closeButtonEl = document.createElement("div");
+        Object(_util_dom__WEBPACK_IMPORTED_MODULE_0__["addClasses"])(this.closeButtonEl, this._buildClasses("close-button"));
+        this.el.appendChild(this.closeButtonEl);
+      }
+
+      if (this.settings._gallery) {
+        this._setUpGalleryElements();
+      }
+
+      this.settings.parentEl.appendChild(this.el);
+
+      this._updateImgSrc();
+
+      this._updateCaption();
+
+      if (this.settings.includeImgixJSClass) {
+        this.imgEl.classList.add("imgix-fluid");
+      }
+    }
+    /**
+     * Creates gallery elements such as previous/next buttons
+     * @return {void}
+     * @protected
+     */
+
+  }, {
+    key: "_setUpGalleryElements",
+    value: function _setUpGalleryElements() {
+      this._buildGalleryButton("previous", this.showPrevious);
+
+      this._buildGalleryButton("next", this.showNext);
+    }
+    /**
+     * Creates a gallery button
+     * @param {string} name Name of button
+     * @param {!Function} fn Click handler
+     * @return {void}
+     * @protected
+     */
+
+  }, {
+    key: "_buildGalleryButton",
+    value: function _buildGalleryButton(name, fn) {
+      var btn = document.createElement("button");
+      this["".concat(name, "Button")] = btn;
+      btn.innerText = name;
+      Object(_util_dom__WEBPACK_IMPORTED_MODULE_0__["addClasses"])(btn, this._buildClasses("".concat(name, "-button")));
+      Object(_util_dom__WEBPACK_IMPORTED_MODULE_0__["addClasses"])(btn, this._buildClasses("gallery-button"));
+      this.innerEl.appendChild(btn);
+      btn.addEventListener("click", function (e) {
+        e.stopPropagation();
+        fn();
+      }, false);
+    }
+    /**
+     * Sizes the image wrapper
+     * @return {void}
+     * @protected
+     */
+
+  }, {
+    key: "_sizeImgWrapperEl",
+    value: function _sizeImgWrapperEl() {
+      var style = this.imgWrapperEl.style;
+      style.width = "".concat(this.innerEl.clientWidth, "px");
+      style.maxWidth = "".concat(this.innerEl.clientWidth, "px");
+      style.height = "".concat(this.innerEl.clientHeight - this.captionEl.clientHeight, "px");
+      style.maxHeight = "".concat(this.innerEl.clientHeight - this.captionEl.clientHeight, "px");
+    }
+    /**
+     * Updates caption from settings
+     * @return {void}
+     * @protected
+     */
+
+  }, {
+    key: "_updateCaption",
+    value: function _updateCaption() {
+      var captionType = _typeof(this.settings.caption);
+
+      var caption = "";
+
+      if (captionType === "string") {
+        caption = this.settings.caption;
+      } else if (captionType === "function") {
+        caption = this.settings.caption(this.currentTrigger);
+      }
+
+      this.captionEl.innerHTML = caption;
+    }
+    /**
+     * Updates image element from the trigger element's attributes
+     * @return {void}
+     * @protected
+     */
+
+  }, {
+    key: "_updateImgSrc",
+    value: function _updateImgSrc() {
+      var _this = this;
+
+      var imageURL = this.currentTrigger.getAttribute(this.settings.sourceAttribute);
+
+      if (!imageURL) {
+        throw new Error("No image URL was found in the ".concat(this.settings.sourceAttribute, " attribute of the trigger."));
+      }
+
+      var loadingClasses = this._buildClasses("loading");
+
+      if (!this.hasBeenLoaded) {
+        Object(_util_dom__WEBPACK_IMPORTED_MODULE_0__["addClasses"])(this.el, loadingClasses);
+      }
+
+      this.imgEl.onload = function () {
+        Object(_util_dom__WEBPACK_IMPORTED_MODULE_0__["removeClasses"])(_this.el, loadingClasses);
+        _this.hasBeenLoaded = true;
+      };
+
+      this.imgEl.setAttribute("src", imageURL);
+    }
+    /**
+     * Handles key up/down events for moving between items
+     * @param {!Event} e Keyboard event
+     * @return {void}
+     * @protected
+     */
+
+  }, {
+    key: "_handleKeydown",
+    value: function _handleKeydown(e) {
+      if (e.keyCode == LEFT_ARROW) {
+        this.showPrevious();
+      } else if (e.keyCode == RIGHT_ARROW) {
+        this.showNext();
+      }
+    }
+    /**
+     * Shows the next item if in a gallery
+     * @return {void}
+     */
+
+  }, {
+    key: "showNext",
+    value: function showNext() {
+      if (!this.settings._gallery) {
+        return;
+      }
+
+      this.currentTrigger = this.settings._gallery.nextTrigger(this.currentTrigger);
+
+      this._updateImgSrc();
+
+      this._updateCaption();
+
+      this._sizeImgWrapperEl();
+    }
+    /**
+     * Shows the previous item if in a gallery
+     * @return {void}
+     */
+
+  }, {
+    key: "showPrevious",
+    value: function showPrevious() {
+      if (!this.settings._gallery) {
+        return;
+      }
+
+      this.currentTrigger = this.settings._gallery.previousTrigger(this.currentTrigger);
+
+      this._updateImgSrc();
+
+      this._updateCaption();
+
+      this._sizeImgWrapperEl();
+    }
+    /**
+     * Opens the lightbox
+     * @return {void}
+     */
+
+  }, {
+    key: "open",
+    value: function open() {
+      if (!this.elementBuilt) {
+        this._buildElement();
+
+        this._bindEventListeners();
+
+        this.elementBuilt = true;
+      } // When opening, always reset to the trigger we were passed
+
+
+      this.currentTrigger = this.settings.triggerEl; // Make sure to re-set the `img` `src`, in case it's been changed
+      // by someone/something else.
+
+      this._updateImgSrc();
+
+      this._updateCaption();
+
+      Object(_util_dom__WEBPACK_IMPORTED_MODULE_0__["addClasses"])(this.el, this.openClasses);
+
+      this._sizeImgWrapperEl();
+
+      window.addEventListener("resize", this._sizeImgWrapperEl, false);
+
+      if (this.settings._arrowNavigation) {
+        window.addEventListener("keydown", this._handleKeydown, false);
+      }
+
+      if (HAS_ANIMATION) {
+        this.el.addEventListener("animationend", this._completeOpen, false);
+        Object(_util_dom__WEBPACK_IMPORTED_MODULE_0__["addClasses"])(this.el, this.openingClasses);
+      }
+    }
+    /**
+     * Closes the lightbox
+     * @return {void}
+     */
+
+  }, {
+    key: "close",
+    value: function close() {
+      window.removeEventListener("resize", this._sizeImgWrapperEl, false);
+
+      if (this.settings._arrowNavigation) {
+        window.removeEventListener("keydown", this._handleKeydown, false);
+      }
+
+      if (HAS_ANIMATION) {
+        this.el.addEventListener("animationend", this._completeClose, false);
+        Object(_util_dom__WEBPACK_IMPORTED_MODULE_0__["addClasses"])(this.el, this.closingClasses);
+      } else {
+        Object(_util_dom__WEBPACK_IMPORTED_MODULE_0__["removeClasses"])(this.el, this.openClasses);
+      }
+    }
+    /**
+     * Handles animations on completion of opening the lightbox
+     * @return {void}
+     * @protected
+     */
+
+  }, {
+    key: "_completeOpen",
+    value: function _completeOpen() {
+      this.el.removeEventListener("animationend", this._completeOpen, false);
+      Object(_util_dom__WEBPACK_IMPORTED_MODULE_0__["removeClasses"])(this.el, this.openingClasses);
+    }
+    /**
+     * Handles animations on completion of closing the lightbox
+     * @return {void}
+     * @protected
+     */
+
+  }, {
+    key: "_completeClose",
+    value: function _completeClose() {
+      this.el.removeEventListener("animationend", this._completeClose, false);
+      Object(_util_dom__WEBPACK_IMPORTED_MODULE_0__["removeClasses"])(this.el, this.openClasses);
+      Object(_util_dom__WEBPACK_IMPORTED_MODULE_0__["removeClasses"])(this.el, this.closingClasses);
+    }
+    /**
+     * Destroys the lightbox
+     * @return {void}
+     */
+
+  }, {
+    key: "destroy",
+    value: function destroy() {
+      if (this.el) {
+        this.settings.parentEl.removeChild(this.el);
+      }
+    }
+  }]);
+
+  return Lightbox;
+}();
+
+
+//# sourceMappingURL=Lightbox.js.map
+
+/***/ }),
+
+/***/ "./node_modules/luminous-lightbox/es/Luminous.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/luminous-lightbox/es/Luminous.js ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Luminous; });
+/* harmony import */ var _util_dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./util/dom */ "./node_modules/luminous-lightbox/es/util/dom.js");
+/* harmony import */ var _injectBaseStylesheet__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./injectBaseStylesheet */ "./node_modules/luminous-lightbox/es/injectBaseStylesheet.js");
+/* harmony import */ var _Lightbox__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Lightbox */ "./node_modules/luminous-lightbox/es/Lightbox.js");
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+
+
+
+/**
+ * Represents the default luminous lightbox
+ */
+
+var Luminous =
+/*#__PURE__*/
+function () {
+  /**
+   * Constructor
+   * @param {!Element} trigger Trigger element to open lightbox
+   * @param {Object=} options Luminous options
+   */
+  function Luminous(trigger) {
+    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+    _classCallCheck(this, Luminous);
+
+    this.VERSION = "2.3.2";
+    this.destroy = this.destroy.bind(this);
+    this.open = this.open.bind(this);
+    this.close = this.close.bind(this);
+    this._handleKeyup = this._handleKeyup.bind(this);
+    this.isOpen = false;
+    this.trigger = trigger;
+
+    if (!Object(_util_dom__WEBPACK_IMPORTED_MODULE_0__["isDOMElement"])(this.trigger)) {
+      throw new TypeError("`new Luminous` requires a DOM element as its first argument.");
+    }
+
+    var rootNode = document;
+
+    if ("getRootNode" in this.trigger) {
+      rootNode = this.trigger.getRootNode();
+    } // Prefix for generated element class names (e.g. `my-ns` will
+    // result in classes such as `my-ns-lightbox`. Default `lum-`
+    // prefixed classes will always be added as well.
+
+
+    var namespace = options["namespace"] || null; // Which attribute to pull the lightbox image source from.
+
+    var sourceAttribute = options["sourceAttribute"] || "href"; // Captions can be a literal string, or a function that receives the Luminous instance's trigger element as an argument and returns a string. Supports HTML, so use caution when dealing with user input.
+
+    var caption = options["caption"] || null; // The event to listen to on the _trigger_ element: triggers opening.
+
+    var openTrigger = options["openTrigger"] || "click"; // The event to listen to on the _lightbox_ element: triggers closing.
+
+    var closeTrigger = options["closeTrigger"] || "click"; // Allow closing by pressing escape.
+
+    var closeWithEscape = options["closeWithEscape"] || true; // Automatically close when the page is scrolled.
+
+    var closeOnScroll = options["closeOnScroll"] || false;
+    var closeButtonEnabled = options["showCloseButton"] != null ? options["showCloseButton"] : true;
+    var appendToNode = options["appendToNode"] || (rootNode === document ? document.body : rootNode); // A selector defining what to append the lightbox element to.
+
+    var appendToSelector = options["appendToSelector"] || null; // If present (and a function), this will be called
+    // whenever the lightbox is opened.
+
+    var onOpen = options["onOpen"] || null; // If present (and a function), this will be called
+    // whenever the lightbox is closed.
+
+    var onClose = options["onClose"] || null; // When true, adds the `imgix-fluid` class to the `img`
+    // inside the lightbox. See https://github.com/imgix/imgix.js
+    // for more information.
+
+    var includeImgixJSClass = options["includeImgixJSClass"] || false; // Add base styles to the page. See the "Theming"
+    // section of README.md for more information.
+
+    var injectBaseStyles = options["injectBaseStyles"] || true; // Internal use only!
+
+    var _gallery = options["_gallery"] || null;
+
+    var _arrowNavigation = options["_arrowNavigation"] || null;
+
+    this.settings = {
+      namespace: namespace,
+      sourceAttribute: sourceAttribute,
+      caption: caption,
+      openTrigger: openTrigger,
+      closeTrigger: closeTrigger,
+      closeWithEscape: closeWithEscape,
+      closeOnScroll: closeOnScroll,
+      closeButtonEnabled: closeButtonEnabled,
+      appendToNode: appendToNode,
+      appendToSelector: appendToSelector,
+      onOpen: onOpen,
+      onClose: onClose,
+      includeImgixJSClass: includeImgixJSClass,
+      injectBaseStyles: injectBaseStyles,
+      _gallery: _gallery,
+      _arrowNavigation: _arrowNavigation
+    };
+    var injectionRoot = document.body;
+
+    if (appendToNode && "getRootNode" in appendToNode) {
+      injectionRoot = appendToNode.getRootNode();
+    }
+
+    if (this.settings.injectBaseStyles) {
+      Object(_injectBaseStylesheet__WEBPACK_IMPORTED_MODULE_1__["default"])(injectionRoot);
+    }
+
+    this._buildLightbox();
+
+    this._bindEventListeners();
+  }
+  /**
+   * Opens the lightbox
+   * @param {Event=} e Event which triggered opening
+   * @return {void}
+   */
+
+
+  _createClass(Luminous, [{
+    key: "open",
+    value: function open(e) {
+      if (e && typeof e.preventDefault === "function") {
+        e.preventDefault();
+      }
+
+      this.lightbox.open();
+
+      if (this.settings.closeOnScroll) {
+        window.addEventListener("scroll", this.close, false);
+      }
+
+      var onOpen = this.settings.onOpen;
+
+      if (onOpen && typeof onOpen === "function") {
+        onOpen();
+      }
+
+      this.isOpen = true;
+    }
+    /**
+     * Closes the lightbox
+     * @param {Event=} e Event which triggered closing
+     * @return {void}
+     */
+
+  }, {
+    key: "close",
+    value: function close(e) {
+      if (this.settings.closeOnScroll) {
+        window.removeEventListener("scroll", this.close, false);
+      }
+
+      this.lightbox.close();
+      var onClose = this.settings.onClose;
+
+      if (onClose && typeof onClose === "function") {
+        onClose();
+      }
+
+      this.isOpen = false;
+    }
+    /**
+     * Builds the internal lightbox instance
+     * @protected
+     * @return {void}
+     */
+
+  }, {
+    key: "_buildLightbox",
+    value: function _buildLightbox() {
+      var parentEl = this.settings.appendToNode;
+
+      if (this.settings.appendToSelector) {
+        parentEl = document.querySelector(this.settings.appendToSelector);
+      }
+
+      this.lightbox = new _Lightbox__WEBPACK_IMPORTED_MODULE_2__["default"]({
+        namespace: this.settings.namespace,
+        parentEl: parentEl,
+        triggerEl: this.trigger,
+        sourceAttribute: this.settings.sourceAttribute,
+        caption: this.settings.caption,
+        includeImgixJSClass: this.settings.includeImgixJSClass,
+        closeButtonEnabled: this.settings.closeButtonEnabled,
+        _gallery: this.settings._gallery,
+        _arrowNavigation: this.settings._arrowNavigation,
+        closeTrigger: this.settings.closeTrigger,
+        onClose: this.close
+      });
+    }
+    /**
+     * Binds lightbox events to the trigger element
+     * @protected
+     * @return {void}
+     */
+
+  }, {
+    key: "_bindEventListeners",
+    value: function _bindEventListeners() {
+      this.trigger.addEventListener(this.settings.openTrigger, this.open, false);
+
+      if (this.settings.closeWithEscape) {
+        window.addEventListener("keyup", this._handleKeyup, false);
+      }
+    }
+    /**
+     * Unbinds all events
+     * @protected
+     * @return {void}
+     */
+
+  }, {
+    key: "_unbindEvents",
+    value: function _unbindEvents() {
+      this.trigger.removeEventListener(this.settings.openTrigger, this.open, false);
+
+      if (this.lightbox.el) {
+        this.lightbox.el.removeEventListener(this.settings.closeTrigger, this.close, false);
+      }
+
+      if (this.settings.closeWithEscape) {
+        window.removeEventListener("keyup", this._handleKeyup, false);
+      }
+    }
+    /**
+     * Handles key up events and closes lightbox when esc is pressed
+     * @param {!Event} e Keyboard event
+     * @return {void}
+     * @protected
+     */
+
+  }, {
+    key: "_handleKeyup",
+    value: function _handleKeyup(e) {
+      if (this.isOpen && e.keyCode === 27) {
+        this.close();
+      }
+    }
+    /**
+     * Destroys internal lightbox and unbinds events
+     * @return {void}
+     */
+
+  }, {
+    key: "destroy",
+    value: function destroy() {
+      this._unbindEvents();
+
+      this.lightbox.destroy();
+    }
+  }]);
+
+  return Luminous;
+}();
+/* eslint-disable no-self-assign */
+
+
+
+Luminous.prototype["open"] = Luminous.prototype.open;
+Luminous.prototype["close"] = Luminous.prototype.close;
+Luminous.prototype["destroy"] = Luminous.prototype.destroy;
+/* eslint-enable no-self-assign */
+//# sourceMappingURL=Luminous.js.map
+
+/***/ }),
+
+/***/ "./node_modules/luminous-lightbox/es/LuminousGallery.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/luminous-lightbox/es/LuminousGallery.js ***!
+  \**************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return LuminousGallery; });
+/* harmony import */ var _Luminous__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Luminous */ "./node_modules/luminous-lightbox/es/Luminous.js");
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+
+/**
+ * Represents a gallery-style lightbox
+ */
+
+var LuminousGallery =
+/*#__PURE__*/
+function () {
+  /**
+   * Constructor
+   * @param {!Array<!Element>} triggers Array of trigger elements
+   * @param {Object=} options Gallery options
+   * @param {Object=} luminousOpts Luminous options
+   */
+  function LuminousGallery(triggers) {
+    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+    var luminousOpts = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+
+    _classCallCheck(this, LuminousGallery);
+
+    var optionsDefaults = {
+      arrowNavigation: true
+    };
+    this.settings = Object.assign({}, optionsDefaults, options);
+    this.triggers = triggers;
+    this.luminousOpts = luminousOpts;
+    this.luminousOpts["_gallery"] = this;
+    this.luminousOpts["_arrowNavigation"] = this.settings["arrowNavigation"];
+
+    this._constructLuminousInstances();
+  }
+  /**
+   * Creates internal luminous instances
+   * @protected
+   * @return {void}
+   */
+
+
+  _createClass(LuminousGallery, [{
+    key: "_constructLuminousInstances",
+    value: function _constructLuminousInstances() {
+      this.luminousInstances = [];
+      var triggerLen = this.triggers.length;
+
+      for (var i = 0; i < triggerLen; i++) {
+        var trigger = this.triggers[i];
+        var lum = new _Luminous__WEBPACK_IMPORTED_MODULE_0__["default"](trigger, this.luminousOpts);
+        this.luminousInstances.push(lum);
+      }
+    }
+    /**
+     * Determines the next trigger element
+     * @param {!Element} trigger Current trigger element
+     * @return {!Element}
+     */
+
+  }, {
+    key: "nextTrigger",
+    value: function nextTrigger(trigger) {
+      var nextTriggerIndex = Array.prototype.indexOf.call(this.triggers, trigger) + 1;
+      return nextTriggerIndex >= this.triggers.length ? this.triggers[0] : this.triggers[nextTriggerIndex];
+    }
+    /**
+     * Determines the previous trigger element
+     * @param {!Element} trigger Current trigger element
+     * @return {!Element}
+     */
+
+  }, {
+    key: "previousTrigger",
+    value: function previousTrigger(trigger) {
+      var prevTriggerIndex = Array.prototype.indexOf.call(this.triggers, trigger) - 1;
+      return prevTriggerIndex < 0 ? this.triggers[this.triggers.length - 1] : this.triggers[prevTriggerIndex];
+    }
+    /**
+     * Destroys the internal luminous instances
+     * @return {void}
+     */
+
+  }, {
+    key: "destroy",
+    value: function destroy() {
+      this.luminousInstances.forEach(function (instance) {
+        return instance.destroy();
+      });
+    }
+  }]);
+
+  return LuminousGallery;
+}();
+/* eslint-disable-next-line no-self-assign */
+
+
+
+LuminousGallery.prototype["destroy"] = LuminousGallery.prototype.destroy;
+//# sourceMappingURL=LuminousGallery.js.map
+
+/***/ }),
+
+/***/ "./node_modules/luminous-lightbox/es/injectBaseStylesheet.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/luminous-lightbox/es/injectBaseStylesheet.js ***!
+  \*******************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return injectBaseStylesheet; });
+/* UNMINIFIED RULES
+
+@keyframes lum-noop {
+  0% { zoom: 1; }
+}
+
+.lum-lightbox {
+  position: fixed;
+  display: none;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.lum-lightbox.lum-open {
+  display: block;
+}
+
+.lum-lightbox.lum-opening, .lum-lightbox.lum-closing {
+  animation: lum-noop 1ms;
+}
+
+.lum-lightbox-inner {
+  position: absolute;
+  top: 0%;
+  right: 0%;
+  bottom: 0%;
+  left: 0%;
+
+  overflow: hidden;
+}
+
+.lum-lightbox-loader {
+  display: none;
+}
+
+.lum-lightbox-inner img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.lum-lightbox-image-wrapper {
+  vertical-align: middle;
+  display: table-cell;
+  text-align: center;
+}
+*/
+var RULES = "@keyframes lum-noop{0%{zoom:1}}.lum-lightbox{position:fixed;display:none;top:0;right:0;bottom:0;left:0}.lum-lightbox.lum-open{display:block}.lum-lightbox.lum-closing,.lum-lightbox.lum-opening{animation:lum-noop 1ms}.lum-lightbox-inner{position:absolute;top:0;right:0;bottom:0;left:0;overflow:hidden}.lum-lightbox-loader{display:none}.lum-lightbox-inner img{max-width:100%;max-height:100%}.lum-lightbox-image-wrapper{vertical-align:middle;display:table-cell;text-align:center}";
+/**
+ * Injects the base stylesheet needed to display the lightbox
+ * element.
+ * If `node` is the document, the stylesheet will be appended to `<head>`.
+ * @param {!Node} node Node to append stylesheet to
+ * @return {void}
+ */
+
+function injectBaseStylesheet(node) {
+  if (!node || node === document) {
+    node = document.head;
+  }
+
+  if (node.querySelector(".lum-base-styles")) {
+    return;
+  }
+
+  var styleEl = document.createElement("style");
+  styleEl.type = "text/css";
+  styleEl.classList.add("lum-base-styles");
+  styleEl.appendChild(document.createTextNode(RULES));
+  node.insertBefore(styleEl, node.firstChild);
+}
+//# sourceMappingURL=injectBaseStylesheet.js.map
+
+/***/ }),
+
+/***/ "./node_modules/luminous-lightbox/es/lum.js":
+/*!**************************************************!*\
+  !*** ./node_modules/luminous-lightbox/es/lum.js ***!
+  \**************************************************/
+/*! exports provided: Luminous, LuminousGallery */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Luminous__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Luminous */ "./node_modules/luminous-lightbox/es/Luminous.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Luminous", function() { return _Luminous__WEBPACK_IMPORTED_MODULE_0__["default"]; });
+
+/* harmony import */ var _LuminousGallery__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./LuminousGallery */ "./node_modules/luminous-lightbox/es/LuminousGallery.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "LuminousGallery", function() { return _LuminousGallery__WEBPACK_IMPORTED_MODULE_1__["default"]; });
+
+// This file exports the Luminous exports in the ES6 Module Spec, which is compatible with the commonjs spec
+
+
+
+//# sourceMappingURL=lum.js.map
+
+/***/ }),
+
+/***/ "./node_modules/luminous-lightbox/es/util/dom.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/luminous-lightbox/es/util/dom.js ***!
+  \*******************************************************/
+/*! exports provided: isDOMElement, addClasses, removeClasses */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isDOMElement", function() { return isDOMElement; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addClasses", function() { return addClasses; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeClasses", function() { return removeClasses; });
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+// This is not really a perfect check, but works fine.
+// From http://stackoverflow.com/questions/384286
+var HAS_DOM_2 = (typeof HTMLElement === "undefined" ? "undefined" : _typeof(HTMLElement)) === "object";
+var HAS_SHADOW = typeof ShadowRoot !== "undefined";
+/**
+ * Determines whether an object is a DOM element or not.
+ * @param {!Object} obj Object to check
+ * @return {boolean} True if object is an element
+ */
+
+function isDOMElement(obj) {
+  if (HAS_SHADOW && obj instanceof ShadowRoot) {
+    return true;
+  }
+
+  return HAS_DOM_2 ? obj instanceof HTMLElement : obj && _typeof(obj) === "object" && obj !== null && obj.nodeType === 1 && typeof obj.nodeName === "string";
+}
+/**
+ * Adds an array of classes to an element
+ * @param {!Element} el Element to add classes to
+ * @param {!Array<!string>} classNames Class names to add
+ * @return {void}
+ */
+
+function addClasses(el, classNames) {
+  classNames.forEach(function (className) {
+    el.classList.add(className);
+  });
+}
+/**
+ * Removes an array of classes from an element
+ * @param {!Element} el Element to remove classes from
+ * @param {!Array<!string>} classNames Classes to remove
+ * @return {void}
+ */
+
+function removeClasses(el, classNames) {
+  classNames.forEach(function (className) {
+    el.classList.remove(className);
+  });
+}
+//# sourceMappingURL=dom.js.map
+
+/***/ }),
+
+/***/ "./node_modules/luminous-lightbox/es/util/throwIfMissing.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/luminous-lightbox/es/util/throwIfMissing.js ***!
+  \******************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return throwIfMissing; });
+/**
+ * Throws a missing parameter error
+ */
+function throwIfMissing() {
+  throw new Error("Missing parameter");
+}
+//# sourceMappingURL=throwIfMissing.js.map
+
+/***/ }),
+
 /***/ "./node_modules/process/browser.js":
 /*!*****************************************!*\
   !*** ./node_modules/process/browser.js ***!
@@ -14537,6 +15589,7 @@ module.exports = g;
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_CreateSnippet_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/CreateSnippet.vue */ "./resources/js/components/CreateSnippet.vue");
 /* harmony import */ var _components_Snippet_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/Snippet.vue */ "./resources/js/components/Snippet.vue");
+/* harmony import */ var luminous_lightbox__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! luminous-lightbox */ "./node_modules/luminous-lightbox/es/lum.js");
 
 
 /**
@@ -14548,6 +15601,8 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+
+new luminous_lightbox__WEBPACK_IMPORTED_MODULE_2__["LuminousGallery"](document.querySelectorAll('.lightbox-item'));
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

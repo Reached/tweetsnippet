@@ -24,7 +24,6 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="96x96" href="/favicons/favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
-    <link rel="manifest" href="/favicons/manifest.json">
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/favicons/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
@@ -74,29 +73,30 @@
     </div>
 
     @include('layouts.includes.footer')
-    @yield('scripts')
+    <script src="{{ mix('js/app.js') }}"></script>
+    @stack('scripts')
     <script>
         window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
         ga('create', '{{ env('GA_KEY') }}', 'auto');
         ga('send', 'pageview');
 
-        var searchOverlay = document.querySelector('.search-overlay');
-        var searchButtons = document.querySelectorAll('.search-button');
-
-        searchButtons.forEach(function(button) {
-            button.addEventListener('click', function() {
-                searchOverlay.classList.add('shown');
-
-                setTimeout(function() {
-                    document.querySelector('.search-input').focus();
-                }, 100);
-            });
-        });
-
-        document.querySelector('.search-overlay .close-button').addEventListener('click', function() {
-            searchOverlay.classList.remove('shown');
-
-        });
+        // var searchOverlay = document.querySelector('.search-overlay');
+        // var searchButtons = document.querySelectorAll('.search-button');
+        //
+        // searchButtons.forEach(function(button) {
+        //     button.addEventListener('click', function() {
+        //         searchOverlay.classList.add('shown');
+        //
+        //         setTimeout(function() {
+        //             document.querySelector('.search-input').focus();
+        //         }, 100);
+        //     });
+        // });
+        //
+        // document.querySelector('.search-overlay .close-button').addEventListener('click', function() {
+        //     searchOverlay.classList.remove('shown');
+        //
+        // });
     </script>
     <script async src='https://www.google-analytics.com/analytics.js'></script>
 </body>

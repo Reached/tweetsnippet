@@ -26,7 +26,3 @@
 
 {{ $snippets->links() }}
 @endsection
-
-@section('scripts')
-    <script src="/js/lightbox.js"></script>
-@endsection

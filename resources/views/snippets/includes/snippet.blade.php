@@ -18,8 +18,8 @@
     </div>
     <div class="bottom-content">
         @if($snippet->image)
-            <a href="{{ $snippet->image }}">
-                <img class="h-64 object-cover object-center" src="{{ $snippet->image }}"
+            <a class="h-64 block lightbox-item" href="{{ $snippet->image }}">
+                <img class="object-cover h-64 object-center" src="{{ $snippet->image }}"
                      alt="A {{ $tags->first()->name }} snippet by ({{ $snippet->user_name }}) {{ $snippet->screen_name }}">
             </a>
         @endif

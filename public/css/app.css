@@ -776,6 +776,7 @@ label {
 
 .grid {
   display: block;
+  padding: 0;
 }
 
 .upper-grid {
@@ -848,7 +849,6 @@ label {
   .grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    padding: 0 1rem;
     grid-gap: 1rem;
   }
 
@@ -1185,64 +1185,139 @@ strong {
   color: #fff;
 }
 
-.tag-item.php.active {
+.tag-item.php.active,
+.tag-item.php:hover {
   background: #4f5b93;
 }
 
-.tag-item.javascript.active {
+.tag-item.php:hover {
+  color: #fff;
+}
+
+.tag-item.javascript.active,
+.tag-item.javascript:hover {
   background: #efd844;
 }
 
-.tag-item.laravel.active {
+.tag-item.javascript:hover {
+  color: #6a5921;
+}
+
+.tag-item.laravel.active,
+.tag-item.laravel:hover {
   background: #e74430;
 }
 
-.tag-item.vue-js.active {
+.tag-item.laravel:hover {
+  color: #fff;
+}
+
+.tag-item.vue-js.active,
+.tag-item.vue-js:hover {
   background: #4fc08d;
 }
 
-.tag-item.react-js.active {
+.tag-item.laravel:hover {
+  color: #fff;
+}
+
+.tag-item.react-js.active,
+.tag-item.react-js:hover {
   background: #61dafb;
 }
 
-.tag-item.code-editor.active {
+.tag-item.react-js:hover {
+  color: #3d6a82;
+}
+
+.tag-item.code-editor.active,
+.tag-item.code-editor:hover {
   background: #1c2022;
 }
 
-.tag-item.design.active {
+.tag-item.code-editor:hover {
+  color: #fff;
+}
+
+.tag-item.design.active,
+.tag-item.design:hover {
   background: #5449d2;
 }
 
-.tag-item.css.active {
+.tag-item.design:hover {
+  color: #fff;
+}
+
+.tag-item.css.active,
+.tag-item.css:hover {
   background: #0770b3;
 }
 
-.tag-item.es6.active {
+.tag-item.css:hover {
+  color: #fff;
+}
+
+.tag-item.es6.active,
+.tag-item.es6:hover {
   background: #f4c33b;
 }
 
-.tag-item.ux.active {
-  background: #c8474b;
+.tag-item.es6:hover {
+  color: #fff;
 }
 
-.tag-item.html.active {
+.tag-item.ux.active,
+.tag-item.ux:hover {
+  background: #b03ac8;
+}
+
+.tag-item.ux:hover {
+  color: #fff;
+}
+
+.tag-item.html.active,
+.tag-item.html:hover {
   background: #db4c2f;
 }
 
-.tag-item.browsers.active {
-  background: #139e62;
+.tag-item.html:hover {
+  color: #fff;
 }
 
-.tag-item.git.active {
+.tag-item.browsers.active,
+.tag-item.browsers:hover {
+  background: #465f9e;
+}
+
+.tag-item.browsers:hover {
+  color: #fff;
+}
+
+.tag-item.git.active,
+.tag-item.git:hover {
   background: #e74e39;
 }
 
-.tag-item.cli.active {
+.tag-item.git:hover {
+  color: #fff;
+}
+
+.tag-item.cli.active,
+.tag-item.cli:hover {
   background: #03262e;
 }
 
-.tag-item.ember.active {
+.tag-item.cli:hover {
+  color: #fff;
+}
+
+.tag-item.ember.active,
+.tag-item.ember:hover {
   background: #da4b37;
+}
+
+.tag-item.ember:hover {
+  color: #fff;
 }
 
 * {

@@ -15,7 +15,7 @@
 
     <div class="grid upper-grid">
         @include('snippets.includes.sidebar')
-        <div class="grid">
+        <div class="grid ">
             @forelse($snippets as $snippet)
                 @include('snippets.includes.snippet')
             @empty

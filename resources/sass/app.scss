@@ -61,64 +61,139 @@
     color: #ffffff;
 }
 
-.tag-item.php.active {
+.tag-item.php.active,
+.tag-item.php:hover {
     background: #4F5B93;
 }
 
-.tag-item.javascript.active {
+.tag-item.php:hover {
+    color: #ffffff;
+}
+
+.tag-item.javascript.active,
+.tag-item.javascript:hover {
     background: #EFD844;
 }
 
-.tag-item.laravel.active {
+.tag-item.javascript:hover {
+    color: #6a5921;
+}
+
+.tag-item.laravel.active,
+.tag-item.laravel:hover {
    background: #e74430;
 }
 
-.tag-item.vue-js.active {
+.tag-item.laravel:hover {
+    color: #ffffff;
+}
+
+.tag-item.vue-js.active,
+.tag-item.vue-js:hover {
     background: #4fc08d;
 }
 
-.tag-item.react-js.active {
+.tag-item.laravel:hover {
+    color: #ffffff;
+}
+
+.tag-item.react-js.active,
+.tag-item.react-js:hover {
     background: #61dafb;
 }
 
-.tag-item.code-editor.active {
+.tag-item.react-js:hover {
+    color: #3d6a82;
+}
+
+.tag-item.code-editor.active,
+.tag-item.code-editor:hover {
     background: #1C2022;
 }
 
-.tag-item.design.active {
+.tag-item.code-editor:hover {
+    color: #ffffff;
+}
+
+.tag-item.design.active,
+.tag-item.design:hover {
     background: #5449D2;
 }
 
-.tag-item.css.active {
+.tag-item.design:hover {
+    color: #ffffff;
+}
+
+.tag-item.css.active,
+.tag-item.css:hover {
     background: #0770B3;
 }
 
-.tag-item.es6.active {
+.tag-item.css:hover {
+    color: #ffffff;
+}
+
+.tag-item.es6.active,
+.tag-item.es6:hover{
     background: #F4C33B;
 }
 
-.tag-item.ux.active {
-    background: #C8474B;
+.tag-item.es6:hover {
+    color: #ffffff;
 }
 
-.tag-item.html.active {
+.tag-item.ux.active,
+.tag-item.ux:hover {
+    background: #b03ac8;
+}
+
+.tag-item.ux:hover {
+    color: #ffffff;
+}
+
+.tag-item.html.active,
+.tag-item.html:hover {
     background: #DB4C2F;
 }
 
-.tag-item.browsers.active {
-    background: #139E62;
+.tag-item.html:hover {
+    color: #ffffff;
 }
 
-.tag-item.git.active {
+.tag-item.browsers.active,
+.tag-item.browsers:hover {
+    background: #465f9e;
+}
+
+.tag-item.browsers:hover {
+    color: #ffffff;
+}
+
+.tag-item.git.active,
+.tag-item.git:hover {
     background: #E74E39;
 }
 
-.tag-item.cli.active {
+.tag-item.git:hover {
+    color: #ffffff;
+}
+
+.tag-item.cli.active,
+.tag-item.cli:hover {
     background: #03262E;
 }
 
-.tag-item.ember.active {
+.tag-item.cli:hover {
+    color: #ffffff;
+}
+
+.tag-item.ember.active,
+.tag-item.ember:hover {
     background: #DA4B37;
+}
+
+.tag-item.ember:hover {
+    color: #ffffff;
 }
 
 @import 'base';

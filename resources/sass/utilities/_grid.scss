@@ -1,5 +1,6 @@
 .grid {
   display: block;
+  padding: 0;
 }
 
 .upper-grid {
@@ -72,7 +73,6 @@
   .grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    padding: 0 1rem;
     grid-gap: 1rem;
   }
   .grid.no-items {
@@ -110,6 +110,7 @@
 @media screen and (min-width: 100rem) {
   .grid {
     grid-template-columns: 1fr 1fr 1fr 1fr;
+
   }
   .upper-grid {
     grid-template-columns: 300px 4fr;

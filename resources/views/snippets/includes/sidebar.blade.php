@@ -1,5 +1,5 @@
 <aside>
-    <nav class="flex flex-col overflow-auto sticky pin-t w-64">
+    <nav class="flex flex-col fixed pin-t w-64">
         <a href="{{ route('home') }}" class="tag-item all {{ active('home') }} py-4 w-full px-6 text-black flex items-center rounded-tr-full rounded-br-full transition">
             @svg('all', ['class' => 'h-8 w-8 mr-4'])
             All

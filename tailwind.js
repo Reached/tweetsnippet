@@ -211,7 +211,7 @@ module.exports = {
 
   fonts: {
     'sans': [
-      'Avenir Next',
+      'Nunito',
       'system-ui',
       'BlinkMacSystemFont',
       '-apple-system',
@@ -787,7 +787,7 @@ module.exports = {
   shadows: {
     default: '0 2px 4px 0 rgba(0,0,0,0.10)',
     'md': '0 4px 8px 0 rgba(0,0,0,0.12), 0 2px 4px 0 rgba(0,0,0,0.08)',
-    'lg': '0 15px 30px 0 rgba(0,0,0,0.11), 0 5px 15px 0 rgba(0,0,0,0.08)',
+    'lg': '0 15px 30px 0 rgba(0,0,0,0.03), 0 5px 15px 0 rgba(0,0,0,0.02)',
     'inner': 'inset 0 2px 4px 0 rgba(0,0,0,0.06)',
     'outline': '0 0 0 3px rgba(52,144,220,0.5)',
     'none': 'none',
@@ -929,8 +929,8 @@ module.exports = {
     minHeight: ['responsive'],
     minWidth: ['responsive'],
     negativeMargin: ['responsive'],
-    objectFit: false,
-    objectPosition: false,
+    objectFit: ['responsive', 'hover', 'focus', 'active', 'group-hover'],
+    objectPosition: ['responsive', 'hover', 'focus', 'active', 'group-hover'],
     opacity: ['responsive'],
     outline: ['focus'],
     overflow: ['responsive'],
@@ -975,6 +975,14 @@ module.exports = {
       // center: true,
       // padding: '1rem',
     }),
+    require('tailwindcss-transition')({
+      standard: 'all .3s ease',
+      transitions: {
+        'slow': 'all 2s ease',
+        'normal-in-out-quad': 'all 2s cubic-bezier(0.455, 0.03, 0.515, 0.955)',
+        'slow-in-out-quad': 'all 2s cubic-bezier(0.455, 0.03, 0.515, 0.955)',
+      }
+    })
   ],
 
 

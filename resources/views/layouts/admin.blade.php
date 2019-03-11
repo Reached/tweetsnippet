@@ -29,9 +29,10 @@
     <meta name="msapplication-TileImage" content="/favicons/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
     {{--@include('feed::links')--}}
+    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 </head>
 
-<body class="header-is-fixed @yield('body-classes')">
+<body class="header-is-fixed font-sans @yield('body-classes')">
     <div id="app">
         {{--@yield('lightbox')--}}
         <header class="fixed-header">

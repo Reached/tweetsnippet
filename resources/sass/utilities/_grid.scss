@@ -7,6 +7,14 @@
   display: block;
 }
 
+.grid.inner-grid {
+  padding: 1rem;
+}
+
+.grid.main-grid {
+  grid-template-columns: 260px 1fr;
+}
+
 .sidebar h3 {
   margin-top: 0;
 }
@@ -73,7 +81,7 @@
   .grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-gap: 1rem;
+    grid-gap: 2rem;
   }
   .grid.no-items {
     grid-template-columns: auto;

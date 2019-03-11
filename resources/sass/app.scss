@@ -56,7 +56,8 @@
 @import 'components/inputs';
 //@import 'components/tables';
 
-.tag-item.all.active {
+.tag-item.all.active,
+.tag-item.all:hover {
     background: $brand-primary;
     color: #ffffff;
 }

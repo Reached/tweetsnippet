@@ -11,7 +11,11 @@ require('./bootstrap');
 window.Vue = require('vue');
 import {LuminousGallery} from 'luminous-lightbox';
 
-new LuminousGallery(document.querySelectorAll('.lightbox-item'));
+new LuminousGallery(document.querySelectorAll('.lightbox-item'), {}, {
+    caption: function(element) {
+        return element.dataset.caption;
+    }
+});
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -19,9 +23,9 @@ new LuminousGallery(document.querySelectorAll('.lightbox-item'));
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('create-snippet', CreateSnippet);
-Vue.component('snippet', Snippet);
-
-const app = new Vue({
-    el: '#app'
-});
+// Vue.component('create-snippet', CreateSnippet);
+// Vue.component('snippet', Snippet);
+//
+// const app = new Vue({
+//     el: '#app'
+// });

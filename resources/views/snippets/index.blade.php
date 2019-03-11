@@ -28,20 +28,7 @@
             </div>
         </div>
 
+        {{ $snippets->links() }}
     </div>
 
-    <h1 class="headline-centered has-subtitle">{ All snippets }</h1>
-
-    <div class="grid upper-grid">
-        @include('snippets.includes.sidebar')
-        <div class="grid main-grid">
-            @forelse($snippets as $snippet)
-                @include('snippets.includes.snippet')
-            @empty
-                <h3 class="headline-centered">No snippets exists in this category yet :(</h3>
-            @endforelse
-        </div>
-
-    </div>
-    {{ $snippets->links() }}
 @endsection

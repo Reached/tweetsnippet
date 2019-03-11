@@ -972,6 +972,19 @@ h3 {
   font-size: 1.2rem;
 }
 
+body .lum-lightbox-inner .lum-lightbox-caption {
+  background-color: #fff;
+  color: #3d4852;
+  padding: 1rem;
+  width: 100%;
+  margin-top: 1rem;
+  border-radius: .5rem;
+}
+
+body .lum-img {
+  border-radius: .5rem;
+}
+
 @media screen and (min-width: 41rem) {
   h1 {
     font-size: 2.618em;

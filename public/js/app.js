@@ -15602,18 +15602,22 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 
-new luminous_lightbox__WEBPACK_IMPORTED_MODULE_2__["LuminousGallery"](document.querySelectorAll('.lightbox-item'));
+new luminous_lightbox__WEBPACK_IMPORTED_MODULE_2__["LuminousGallery"](document.querySelectorAll('.lightbox-item'), {}, {
+  caption: function caption(element) {
+    return element.dataset.caption;
+  }
+});
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
-
-Vue.component('create-snippet', _components_CreateSnippet_vue__WEBPACK_IMPORTED_MODULE_0__["default"]);
-Vue.component('snippet', _components_Snippet_vue__WEBPACK_IMPORTED_MODULE_1__["default"]);
-var app = new Vue({
-  el: '#app'
-});
+// Vue.component('create-snippet', CreateSnippet);
+// Vue.component('snippet', Snippet);
+//
+// const app = new Vue({
+//     el: '#app'
+// });
 
 /***/ }),
 

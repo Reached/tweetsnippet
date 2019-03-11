@@ -44,6 +44,14 @@ h3 {font-size: 1.218em;}
   font-size: 1.2rem;
 }
 
+body .lum-lightbox-inner .lum-lightbox-caption {
+  @apply bg-white text-grey-darkest p-4 w-full mt-4 rounded-lg;
+}
+
+body .lum-img {
+  @apply rounded-lg;
+}
+
 @media screen and (min-width: 41rem) {
   h1 {font-size: 2.618em;}
   .subtitle {

@@ -28,5 +28,5 @@
 @endsection
 
 @section('scripts')
-    <script src="/js/lightbox.js"></script>
+    <script src="/js/lightbox.min.js"></script>
 @endsection

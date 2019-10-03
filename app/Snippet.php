@@ -11,15 +11,20 @@ class Snippet extends Model implements Feedable
     protected $guarded = ['id'];
     protected $casts = ['approved' => 'boolean'];
 
+    public static function getFeedItems()
+    {
+        return self::limit(30)->orderBy('updated_at','desc')->get();
+    }
+
     public function toFeedItem()
     {
         return FeedItem::create()
             ->id($this->id)
-            ->title($this->title)
-            ->summary($this->summary)
+            ->title($this->text)
+            ->summary($this->text)
             ->updated($this->updated_at)
-            ->link($this->link)
-            ->author($this->author);
+            ->link($this->tweet_url)
+            ->author($this->user_name);
     }
 
     public function tags()

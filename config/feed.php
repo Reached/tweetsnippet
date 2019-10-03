@@ -1,5 +1,6 @@
 <?php
 
+
 return [
     'feeds' => [
         'main' => [
@@ -11,12 +12,12 @@ return [
              * You can also pass an argument to that method:
              * ['App\Model@getAllFeedItems', 'argument']
              */
-            'items' => '',
+            'items' => 'App\Snippet@getFeedItems',
 
             /*
              * The feed will be available on this url.
              */
-            'url' => '',
+            'url' => '/feed',
 
             'title' => 'My feed',
 

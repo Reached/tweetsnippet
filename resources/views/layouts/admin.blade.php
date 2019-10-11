@@ -28,7 +28,7 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/favicons/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
-    {{--@include('feed::links')--}}
+    @include('feed::links')
 </head>
 
 <body class="header-is-fixed @yield('body-classes')">

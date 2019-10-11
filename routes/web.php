@@ -11,7 +11,7 @@
 |
 */
 
-//Route::feeds();
+Route::feeds();
 
 Route::get('/', 'SnippetsController@index')->name('home');
 Route::get('/snippets/{tag}', 'TagsController@show')->name('tag.show')->multiformat();
